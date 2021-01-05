@@ -20,7 +20,7 @@ public class Node
 
 public class GPlanner
 {
-    public Queue<GAction> plan(List<GAction> actions, Dictionary<string, int> goal, WorldStates states)
+    public Queue<GAction> plan(List<GAction> actions, Dictionary<string, int> goal, WorldStates belief)
     {
         List<GAction> usableActions = new List<GAction>();
 
