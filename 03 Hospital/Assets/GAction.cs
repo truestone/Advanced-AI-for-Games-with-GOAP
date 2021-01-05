@@ -32,17 +32,20 @@ public abstract class GAction : MonoBehaviour
         agent = this.gameObject.GetComponent<NavMeshAgent>();
 
         if (preConditions != null)
+        {
             foreach (WorldState w in preConditions)
             {
                 preconditions.Add(w.key, w.value);
             }
+        }
 
         if (afterEffects != null)
+        {
             foreach (WorldState w in afterEffects)
             {
                 effects.Add(w.key, w.value);
             }
-            
+        }            
     }
 
     public bool IsAchievable()
