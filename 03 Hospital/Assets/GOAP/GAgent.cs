@@ -85,7 +85,7 @@ public class GAgent : MonoBehaviour
             planner = null;
         }
 
-        if (actionQueue != null & actionQueue.Count > 0)
+        if (actionQueue != null && actionQueue.Count > 0)
         {
             currentAction = actionQueue.Dequeue();
             if (currentAction.PrePerform())
