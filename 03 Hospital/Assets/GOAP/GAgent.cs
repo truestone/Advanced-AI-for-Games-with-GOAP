@@ -46,11 +46,15 @@ public class GAgent : MonoBehaviour
         invoked = false;
     }
 
+//            if (currentAction.agent.hasPath && currentAction.agent.remainingDistance < 1f)
+
     void LateUpdate()
     {
         if (currentAction != null && currentAction.running)
         {
-            if (currentAction.agent.hasPath && currentAction.agent.remainingDistance < 1f)
+            float distanceToTarget = Vector3.Distance(currentAction.target.transform.position, transform.position);
+
+            if (currentAction.agent.hasPath && !currentAction.agent.pathPending && distanceToTarget < 2f)
             {
                 if (!invoked)
                 {
@@ -100,7 +104,10 @@ public class GAgent : MonoBehaviour
                 if (currentAction.target != null)
                 {
                     currentAction.running = true;
-                    currentAction.agent.SetDestination(currentAction.target.transform.position);
+                    if (!currentAction.agent.SetDestination(currentAction.target.transform.position))
+                    {
+                        Debug.LogWarning("Nav Mesh Agent Path Error");
+                    };
                 }
             }
             else

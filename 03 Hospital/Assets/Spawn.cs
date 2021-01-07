@@ -11,7 +11,7 @@ public class Spawn : MonoBehaviour
     {
         for (int i = 0; i < numPatients; i++)
         {
-            Instantiate(patientPrefab, this.transform.position, Quaternion.identity);
+            //Instantiate(patientPrefab, this.transform.position, Quaternion.identity);
         }
 
         Invoke("SpawnPatient", 5);    
@@ -20,7 +20,7 @@ public class Spawn : MonoBehaviour
     void SpawnPatient()
     {
         Instantiate(patientPrefab, this.transform.position, Quaternion.identity);
-        Invoke("SpawnPatient", Random.Range(2, 10));
+        Invoke("SpawnPatient", Random.Range(6, 10));
     }
 
     void Update()

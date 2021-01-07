@@ -10,7 +10,10 @@ public class GetPatient : GAction
     {
         target = GWorld.Instance.RemovePatient();
         if (target == null)
+        {
+            Debug.LogWarning("Nurse GetPatient Preperform Error");
             return false;
+        }
 
         resource = GWorld.Instance.RemoveCubicle();
         if (resource != null)

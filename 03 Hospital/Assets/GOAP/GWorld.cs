@@ -25,6 +25,8 @@ public sealed class GWorld
         {
             world.ModifyState("FreeCubicle", cubes.Length);
         }
+
+        Time.timeScale = 5;
     }
 
     private GWorld()
@@ -44,7 +46,7 @@ public sealed class GWorld
 
     public void AddCubicle(GameObject c)
     {
-        patients.Enqueue(c);
+        cubicles.Enqueue(c);
     }
 
     public GameObject RemoveCubicle()
