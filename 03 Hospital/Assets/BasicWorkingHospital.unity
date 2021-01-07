@@ -2155,7 +2155,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2190,7 +2190,7 @@ MonoBehaviour:
   - key: FreeCubicle
     value: 1
   afterEffects:
-  - key: treatPatient
+  - key: patientPickedup
     value: 1
   agent: {fileID: 0}
   running: 0
@@ -2208,6 +2208,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions: []
   currentAction: {fileID: 0}
+--- !u!114 &1303080387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303080382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c680d98dbbd6f5e4799095761720230a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Go To Cubicle
+  cost: 1
+  target: {fileID: 0}
+  targetTag: 
+  duration: 0
+  preConditions:
+  - key: patientPickedup
+    value: 0
+  afterEffects:
+  - key: treatPatient
+    value: 0
+  agent: {fileID: 0}
+  running: 0
 --- !u!1001 &1335556990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4397,21 +4422,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4837915911501023056, guid: 064e05f8709cdd649b2ceaa25f4566f7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 4837915911501023056, guid: 064e05f8709cdd649b2ceaa25f4566f7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 38.14
-      objectReference: {fileID: 0}
     - target: {fileID: 7282385799468292196, guid: 064e05f8709cdd649b2ceaa25f4566f7, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7282385799468292196, guid: 064e05f8709cdd649b2ceaa25f4566f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.708328
+      value: -15.9
       objectReference: {fileID: 0}
     - target: {fileID: 7282385799468292196, guid: 064e05f8709cdd649b2ceaa25f4566f7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4419,7 +4436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7282385799468292196, guid: 064e05f8709cdd649b2ceaa25f4566f7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.818001
+      value: -51.76
       objectReference: {fileID: 0}
     - target: {fileID: 7282385799468292196, guid: 064e05f8709cdd649b2ceaa25f4566f7, type: 3}
       propertyPath: m_LocalRotation.w
