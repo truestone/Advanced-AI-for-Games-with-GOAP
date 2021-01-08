@@ -28,6 +28,8 @@ public class GAgent : MonoBehaviour
     public GAction currentAction;
     SubGoal currentGoal;
 
+    Vector3 destination = Vector3.zero;
+
     protected virtual void Start()
     {
         GAction[] acts = GetComponents<GAction>();
@@ -52,9 +54,9 @@ public class GAgent : MonoBehaviour
     {
         if (currentAction != null && currentAction.running)
         {
-            float distanceToTarget = Vector3.Distance(currentAction.target.transform.position, transform.position);
+            float distanceToTarget = Vector3.Distance(destination, transform.position);
 
-            if (currentAction.agent.hasPath && !currentAction.agent.pathPending && distanceToTarget < 2f)
+            if (distanceToTarget < 2f)
             {
                 if (!invoked)
                 {
@@ -104,10 +106,12 @@ public class GAgent : MonoBehaviour
                 if (currentAction.target != null)
                 {
                     currentAction.running = true;
-                    if (!currentAction.agent.SetDestination(currentAction.target.transform.position))
-                    {
-                        Debug.LogWarning("Nav Mesh Agent Path Error");
-                    };
+
+                    destination = currentAction.target.transform.position;
+                    Transform dest = currentAction.target.transform.Find("Destination");
+                    if (dest != null)
+                        destination = dest.position;
+                    currentAction.agent.SetDestination(destination);
                 }
             }
             else

@@ -8,12 +8,14 @@ public sealed class GWorld
     private static WorldStates world;
     private static Queue<GameObject> patients;
     private static Queue<GameObject> cubicles;
+    private static Queue<GameObject> offices;
 
     static GWorld()
     {
         world = new WorldStates();
         patients = new Queue<GameObject>();
         cubicles = new Queue<GameObject>();
+        offices = new Queue<GameObject>();
 
         GameObject[] cubes = GameObject.FindGameObjectsWithTag("Cubicle");
         foreach(GameObject c in cubes)
@@ -24,6 +26,17 @@ public sealed class GWorld
         if (cubes.Length > 0)
         {
             world.ModifyState("FreeCubicle", cubes.Length);
+        }
+
+        GameObject[] offs = GameObject.FindGameObjectsWithTag("Office");
+        foreach(GameObject o in offs)
+        {
+            offices.Enqueue(o);
+        }
+
+        if (offs.Length > 0)
+        {
+            world.ModifyState("FreeOffice", offs.Length);
         }
 
         Time.timeScale = 5;
@@ -53,6 +66,17 @@ public sealed class GWorld
     {
         if (cubicles.Count == 0) return null;
         return cubicles.Dequeue();
+    }
+
+    public void AddOffice(GameObject c)
+    {
+        offices.Enqueue(c);
+    }
+
+    public GameObject RemoveOffice()
+    {
+        if (offices.Count == 0) return null;
+        return offices.Dequeue();
     }
 
     public static GWorld Instance
