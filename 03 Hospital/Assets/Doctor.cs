@@ -30,6 +30,6 @@ public class Doctor : GAgent
     void NeedRelief()
     {
         beliefs.ModifyState("busting", 0);
-        Invoke("NoodRelief", Random.Range(2, 5));
+        Invoke("NeedRelief", Random.Range(2, 5));
     }
 }
