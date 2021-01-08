@@ -9,6 +9,7 @@ public sealed class GWorld
     private static Queue<GameObject> patients;
     private static Queue<GameObject> cubicles;
     private static Queue<GameObject> offices;
+    private static Queue<GameObject> toilets;
 
     static GWorld()
     {
@@ -16,6 +17,7 @@ public sealed class GWorld
         patients = new Queue<GameObject>();
         cubicles = new Queue<GameObject>();
         offices = new Queue<GameObject>();
+        toilets = new Queue<GameObject>();
 
         GameObject[] cubes = GameObject.FindGameObjectsWithTag("Cubicle");
         foreach(GameObject c in cubes)
@@ -37,6 +39,17 @@ public sealed class GWorld
         if (offs.Length > 0)
         {
             world.ModifyState("FreeOffice", offs.Length);
+        }
+
+        GameObject[] toiletGO = GameObject.FindGameObjectsWithTag("Toilet");
+        foreach(GameObject t in toiletGO)
+        {
+            toilets.Enqueue(t);
+        }
+
+        if (toiletGO.Length > 0)
+        {
+            world.ModifyState("FreeToilet", toiletGO.Length);
         }
 
         Time.timeScale = 5;
@@ -77,6 +90,17 @@ public sealed class GWorld
     {
         if (offices.Count == 0) return null;
         return offices.Dequeue();
+    }
+
+    public void AddToilet(GameObject t)
+    {
+        toilets.Enqueue(t);
+    }
+
+    public GameObject RemoveToilet()
+    {
+        if (toilets.Count == 0) return null;
+        return toilets.Dequeue();
     }
 
     public static GWorld Instance
