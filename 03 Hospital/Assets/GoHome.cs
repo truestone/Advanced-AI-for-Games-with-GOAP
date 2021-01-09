@@ -6,6 +6,7 @@ public class GoHome : GAction
 {
     public override bool PrePerform()
     {
+        beliefs.RemoveState("atHospital");
         return true;
     }
 

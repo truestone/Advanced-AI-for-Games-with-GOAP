@@ -23,7 +23,10 @@ public class Node
     {
         foreach (var b in beliefs)
         {
-            state.Add(b.Key, b.Value);
+            if (!state.ContainsKey(b.Key)) 
+            {
+                state.Add(b.Key, b.Value);
+            }
         }
     }
 }
@@ -61,7 +64,8 @@ public class GPlanner
             if (cheapest == null)
             {
                 cheapest = leaf;
-            } else if (leaf.cost < cheapest.cost)
+            }
+            else if (leaf.cost < cheapest.cost)
             {
                 cheapest = leaf;
             }

@@ -2150,13 +2150,14 @@ GameObject:
   - component: {fileID: 7881807148875189241}
   - component: {fileID: 7881807148875189242}
   - component: {fileID: 8030456594797310652}
+  - component: {fileID: 6259360148844700941}
   m_Layer: 0
   m_Name: Patient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7282385799468292196
 Transform:
   m_ObjectHideFlags: 0
@@ -2213,10 +2214,10 @@ MonoBehaviour:
   duration: 0
   preConditions:
   - key: hasRegistered
-    value: 0
+    value: 1
   afterEffects:
   - key: isWaiting
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!114 &598677522995308520
@@ -2275,10 +2276,10 @@ MonoBehaviour:
   duration: 5
   preConditions:
   - key: hasArrived
-    value: 0
+    value: 1
   afterEffects:
   - key: hasRegistered
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!114 &7881807148875189241
@@ -2313,10 +2314,10 @@ MonoBehaviour:
   duration: 5
   preConditions:
   - key: atHospital
-    value: 0
+    value: 1
   afterEffects:
   - key: isTreated
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!114 &8030456594797310652
@@ -2338,9 +2339,38 @@ MonoBehaviour:
   duration: 0
   preConditions:
   - key: isCured
-    value: 0
+    value: 1
   afterEffects:
   - key: isHome
+    value: 1
+  agent: {fileID: 0}
+  running: 0
+--- !u!114 &6259360148844700941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291085761139824112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a77e900e9e5ee4bac5a18b1f30af71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Go To Toilet
+  cost: 1
+  target: {fileID: 0}
+  targetTag: Toilet
+  duration: 5
+  preConditions:
+  - key: FreeToilet
+    value: 0
+  - key: busting
+    value: 0
+  - key: atHospital
+    value: 0
+  afterEffects:
+  - key: relief
     value: 0
   agent: {fileID: 0}
   running: 0
