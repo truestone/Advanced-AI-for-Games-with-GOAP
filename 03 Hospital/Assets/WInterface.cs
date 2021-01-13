@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WInterface : MonoBehaviour
 {
     public GameObject newResourcePrefab;
+    public NavMeshSurface surface;
+    public GameObject hospital;
 
     GameObject focusObj;
     Vector3 goalPos;
@@ -40,5 +43,13 @@ public class WInterface : MonoBehaviour
             goalPos = hitMove.point;
             focusObj.transform.position = goalPos;
         }    
+        else if (focusObj && Input.GetMouseButtonUp(0))
+        {
+            focusObj.transform.parent = hospital.transform;
+            surface.BuildNavMesh();
+            GWorld.Instance.GetQueue("toilets").AddResource(focusObj);
+            GWorld.Instance.GetWorld().ModifyState("FreeToilet", 1);
+            focusObj = null;
+        }
     }
 }
