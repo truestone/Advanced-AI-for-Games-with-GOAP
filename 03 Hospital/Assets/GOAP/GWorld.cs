@@ -67,7 +67,7 @@ public sealed class GWorld
         toilets = new ResourceQueue("Toilet", "FreeToilet", world);
         resources.Add("toilets", toilets);
         puddles = new ResourceQueue("Puddle", "FreePuddle", world);
-        resources.Add("puddles", toilets);
+        resources.Add("puddles", puddles);
 
         Time.timeScale = 5;
     }
