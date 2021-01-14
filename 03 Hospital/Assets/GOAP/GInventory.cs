@@ -15,6 +15,7 @@ public class GInventory
     {
         foreach (GameObject i in items)
         {
+            if (i == null) continue;
             if (i.tag == tag)
             {
                 return i;

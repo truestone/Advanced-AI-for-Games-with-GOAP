@@ -14,10 +14,21 @@ public class WInterface : MonoBehaviour
 
     Vector3 clickOffset = Vector3.zero;
     bool offsetCalc = false;
+    bool deleteResource = false;
 
     void Start()
     {
         
+    }
+
+    public void MouseOnHoverTrash()
+    {
+        deleteResource = true;
+    }
+
+    public void MosueOutHoverTrash()
+    {
+        deleteResource = false;
     }
 
     void Update()
@@ -64,11 +75,20 @@ public class WInterface : MonoBehaviour
         }    
         else if (focusObj && Input.GetMouseButtonUp(0))
         {
-            focusObj.transform.parent = hospital.transform;
+            if (deleteResource)
+            {
+                GWorld.Instance.GetQueue("toilets").RemoveResource(focusObj);
+                GWorld.Instance.GetWorld().ModifyState("FreeToilet", -1);
+                Destroy(focusObj);
+            }
+            else
+            {
+                focusObj.transform.parent = hospital.transform;
+                GWorld.Instance.GetQueue("toilets").AddResource(focusObj);
+                GWorld.Instance.GetWorld().ModifyState("FreeToilet", 1);
+                focusObj.GetComponent<Collider>().enabled = true;     
+            }
             surface.BuildNavMesh();
-            GWorld.Instance.GetQueue("toilets").AddResource(focusObj);
-            GWorld.Instance.GetWorld().ModifyState("FreeToilet", 1);
-            focusObj.GetComponent<Collider>().enabled = true;            
             focusObj = null;
         }
 
@@ -77,7 +97,7 @@ public class WInterface : MonoBehaviour
             focusObj.transform.Rotate(0, -90, 0);
         }
 
-         if (focusObj && (Input.GetKeyDown(KeyCode.Greater) || Input.GetKeyDown(KeyCode.Period)))
+        if (focusObj && (Input.GetKeyDown(KeyCode.Greater) || Input.GetKeyDown(KeyCode.Period)))
         {
             focusObj.transform.Rotate(0, 90, 0);
         }
