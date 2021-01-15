@@ -10,6 +10,7 @@ public class WInterface : MonoBehaviour
     public GameObject hospital;
 
     GameObject focusObj;
+    ResourceData foData;
     Vector3 goalPos;
 
     Vector3 clickOffset = Vector3.zero;
@@ -45,14 +46,20 @@ public class WInterface : MonoBehaviour
             offsetCalc = false;
             clickOffset = Vector3.zero;
 
-            if (hit.transform.tag == "Toilet")
+            Resource r = hit.transform.GetComponent<Resource>();
+
+            if (r != null)
             {
                 focusObj = hit.transform.gameObject;
+                foData = r.info;
+                GWorld.Instance.GetQueue(foData.resourceQueue).RemoveResource(focusObj);
+                GWorld.Instance.GetWorld().ModifyState(foData.resourceState, -1);                
             }
             else
             {
                 goalPos = hit.point;
                 focusObj = Instantiate(newResourcePrefab, goalPos, newResourcePrefab.transform.rotation);
+                foData = focusObj.GetComponent<Resource>().info;
             }
             focusObj.GetComponent<Collider>().enabled = false;
         }
@@ -77,15 +84,13 @@ public class WInterface : MonoBehaviour
         {
             if (deleteResource)
             {
-                GWorld.Instance.GetQueue("toilets").RemoveResource(focusObj);
-                GWorld.Instance.GetWorld().ModifyState("FreeToilet", -1);
                 Destroy(focusObj);
             }
             else
             {
                 focusObj.transform.parent = hospital.transform;
-                GWorld.Instance.GetQueue("toilets").AddResource(focusObj);
-                GWorld.Instance.GetWorld().ModifyState("FreeToilet", 1);
+                GWorld.Instance.GetQueue(foData.resourceQueue).AddResource(focusObj);
+                GWorld.Instance.GetWorld().ModifyState(foData.resourceState, 1);
                 focusObj.GetComponent<Collider>().enabled = true;     
             }
             surface.BuildNavMesh();
