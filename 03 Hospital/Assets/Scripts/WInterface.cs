@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class WInterface : MonoBehaviour
 {
-    public GameObject newResourcePrefab;
+    public GameObject[] allResources;
+    GameObject newResourcePrefab;
+
     public NavMeshSurface surface;
     public GameObject hospital;
 
@@ -32,10 +35,22 @@ public class WInterface : MonoBehaviour
         deleteResource = false;
     }
 
+    public void ActivateToilet()
+    {
+        newResourcePrefab = allResources[0];
+    }
+
+    public void ActivateCubicle()
+    {
+        newResourcePrefab = allResources[1];
+    }
+
     void Update()
     {
         if (!focusObj && Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(ray, out hit))
@@ -55,13 +70,14 @@ public class WInterface : MonoBehaviour
                 GWorld.Instance.GetQueue(foData.resourceQueue).RemoveResource(focusObj);
                 GWorld.Instance.GetWorld().ModifyState(foData.resourceState, -1);                
             }
-            else
+            else if (newResourcePrefab != null)
             {
                 goalPos = hit.point;
                 focusObj = Instantiate(newResourcePrefab, goalPos, newResourcePrefab.transform.rotation);
                 foData = focusObj.GetComponent<Resource>().info;
             }
-            focusObj.GetComponent<Collider>().enabled = false;
+            if (focusObj)
+                focusObj.GetComponent<Collider>().enabled = false;
         }
         else if (focusObj && Input.GetMouseButton(0))
         {

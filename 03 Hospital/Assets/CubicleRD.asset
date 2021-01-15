@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60cd859dacc647641abe1b683dd88172, type: 3}
-  m_Name: ToiletRD
+  m_Name: CubicleRD
   m_EditorClassIdentifier: 
-  resourceTag: Toilet
-  resourceQueue: toilets
-  resourceState: FreeToilet
+  resourceTag: Cubicle
+  resourceQueue: cubicles
+  resourceState: FreeCubicle
