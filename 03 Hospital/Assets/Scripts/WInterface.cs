@@ -50,7 +50,7 @@ public class WInterface : MonoBehaviour
         if (!focusObj && Input.GetMouseButtonDown(0))
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
-            
+
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(ray, out hit))
@@ -81,9 +81,10 @@ public class WInterface : MonoBehaviour
         }
         else if (focusObj && Input.GetMouseButton(0))
         {
+            int layerMask = 1 << LayerMask.NameToLayer("Floor");
             RaycastHit hitMove;
             Ray rayMove = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (!Physics.Raycast(rayMove, out hitMove))
+            if (!Physics.Raycast(rayMove, out hitMove, Mathf.Infinity, layerMask))
             {
                 return;
             }
